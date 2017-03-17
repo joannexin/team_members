@@ -1,7 +1,54 @@
-export default function() {
-  return [
-    { id: 1, firstname: 'Joanne', lastname: 'Xin', email: 'jeffiefeifei@gmail.com', 'phone': '408-888-8888' },
-    { id: 2, firstname: 'Darius', lastname: 'Karel', email: 'darius@instawork.com', 'phone': '408-888-0000' },
-    { id: 3, firstname: 'Adam', lastname: 'Stepinski', email: 'adam@instawork.com', 'phone': '408-888-6666' }
-  ]
+const members = [
+  { id: 1, firstname: 'Joanne', lastname: 'Xin', email: 'jeffiefeifei@gmail.com', 'phone': '408-888-8888' },
+  { id: 2, firstname: 'Darius', lastname: 'Karel', email: 'darius@gamil.com', 'phone': '408-888-0000' },
+  { id: 3, firstname: 'Adam', lastname: 'Stepinski', email: 'adam@gmail.com', 'phone': '408-888-6666' }
+]
+
+const INITIAL_STATE = {
+  members: members,
+  currentMember: {},
+};
+
+export default function(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    case 'EDIT_MEMBER':
+    return Object.assign({}, state, { currentMember: action.payload })
+
+    case 'UPDATE_MEMBER':
+    var newMembers = updateMember(state.members, action.payload);
+    return Object.assign({}, state, { members: newMembers })
+
+    case 'DELETE_MEMBER':
+    var newMembers = deleteMember(state.members, action.payload);
+    return Object.assign({}, state, { members: newMembers })
+
+    case 'ADD_MEMBER':
+    let member = action.payload
+    member.id = generateId(state.members);
+    var newMembers = state.members.concat([member])
+    return Object.assign({}, state, { members: newMembers })
+
+    default:
+    return state;
+  }
+}
+
+const generateId = (members) => {
+  return Math.max.apply(null, members.map((m) => m.id)) + 1;
+}
+
+const updateMember = (members, member) => {
+  for (var i = 0; i < members.length; i++) {
+    if (member.id === members[i].id) {
+      return members.slice(0, i).concat(member).concat(members.slice(i + 1));
+    }
+  }
+}
+
+const deleteMember = (members, member) => {
+  for (var i = 0; i < members.length; i++) {
+    if (member.id === members[i].id) {
+      return members.slice(0, i).concat(members.slice(i + 1));
+    }
+  }
 }

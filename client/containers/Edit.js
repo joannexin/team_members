@@ -1,21 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { updateMember, deleteMember } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class Edit extends Component {
+  constructor() {
+    super();
+  }
 
-  handleChange(event) {
-    event.preventDefault();
-    console.log(event.target.value);
-    let value = event.target.value;
+  handleFormSubmit(e) {
+    e.preventDefault();
+    const attributes = { id: this.props.member.id };
+    ['firstname', 'lastname', 'email', 'phone'].forEach((a) => {
+      attributes[a] = this[a].value;
+    })
+    this.props.updateMember(attributes);
   }
 
   render() {
-    if (!this.props.member) {
-      return <div></div>;
-    }
     return (
       <div>
-        <form>
+        <Link to="/"><i className="fa fa-times"></i></Link>
+
+        <form onSubmit={this.handleFormSubmit.bind(this)}>
           <h3>Edit team member</h3>
           <p>Edit contact info, location and role.</p>
 
@@ -24,36 +32,27 @@ class Edit extends Component {
           <label>Info</label>
           <br/>
           <field>
-            <input type="text" name="firstname" placeholder="firstname" defaultValue={this.props.member.firstname}/>
+            <input type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname}/>
           </field>
           <br/>
           <field>
-            <input type="text" name="lastname" placeholder="lastname" defaultValue={this.props.member.lastname}/>
+            <input type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname}/>
           </field>
           <br/>
           <field>
-            <input type="text" name="email" placeholder="email" defaultValue={this.props.member.email}/>
+            <input type="text" ref={(input) => this.email = input} placeholder="email" defaultValue={this.props.member.email}/>
           </field>
           <br/>
           <field>
-            <input type="text" name="phone" placeholder="phone" defaultValue={this.props.member.phone}/>
+            <input type="text" ref={(input) => this.phone = input} placeholder="phone" defaultValue={this.props.member.phone}/>
           </field>
-          <br/>
-          <label>Role</label>
-          <br/>
-          <field>
-            <input type="radio" name="regular" value="regular" /> Regular - Can't delete members
-          </field>
-          <field>
-            <input type="radio" name="admin" value="admin" /> Admin - Can delete members
-          </field>
-
           <br/>
 
-          <button type="submit">Delete</button>
           <button type="submit">Save</button>
 
         </form>
+        <button onClick={() => this.props.deleteMember(this.props.member)}>Delete</button>
+
       </div>
     );
   }
@@ -61,8 +60,12 @@ class Edit extends Component {
 
 function mapStateToProps(state) {
   return {
-    member: state.activeMember
+    member: state.memberReducer.currentMember
   };
 }
 
-export default connect(mapStateToProps)(Edit);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ updateMember, deleteMember }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Edit);

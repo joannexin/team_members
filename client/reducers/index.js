@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
-import MembersReducer from './reducer_members';
-import ActiveMemberReducer from './reducer_active_member';
+import memberReducer from './reducer_members';
 
 const rootReducer = combineReducers({
-  members: MembersReducer,
-  activeMember: ActiveMemberReducer
+  memberReducer
 });
 
 export default rootReducer;
