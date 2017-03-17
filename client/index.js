@@ -1,15 +1,14 @@
 import React from 'react';
-import { render } from 'react-dom';
-import HomePage from './components/HomePage.jsx';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reducers from './reducers';
+import Home from './components/Home';
 
-class App extends React.Component {
-  render () {
-    return (
-      <div>
-        <HomePage />
-      </div>
-    );
-  }
-}
+const createStoreWithMiddleware = applyMiddleware()(createStore);
 
-render(<App />, document.getElementById('app'));
+ReactDOM.render(
+  <Provider store={createStoreWithMiddleware(reducers)}>
+    <Home />
+  </Provider>
+  , document.getElementById('root'));
