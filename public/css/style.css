@@ -1,0 +1,19 @@
+body {
+  text-align: center;
+}
+
+ul {
+  margin-left: 34%;
+}
+
+hr, .formfield {
+  max-width: 34%;
+}
+
+.formfield {
+  margin-left: 33%;
+}
+
+button {
+  min-width: 34%;
+}

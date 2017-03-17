@@ -1,7 +1,8 @@
 const members = [
   { id: 1, firstname: 'Joanne', lastname: 'Xin', email: 'jeffiefeifei@gmail.com', 'phone': '408-888-8888' },
   { id: 2, firstname: 'Darius', lastname: 'Karel', email: 'darius@gamil.com', 'phone': '408-888-0000' },
-  { id: 3, firstname: 'Adam', lastname: 'Stepinski', email: 'adam@gmail.com', 'phone': '408-888-6666' }
+  { id: 3, firstname: 'Adam', lastname: 'Stepinski', email: 'adam@gmail.com', 'phone': '408-888-6666' },
+  { id: 4, firstname: 'Mike', lastname: 'Li', email: 'mike@gmail.com', 'phone': '408-888-3333' }
 ]
 
 const INITIAL_STATE = {

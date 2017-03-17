@@ -9,11 +9,16 @@ class Home extends Component {
   renderList() {
     return this.props.members.map((member) => {
       return (
-        <a key={member.id} onClick={() => this.props.editMember(member)} className="list-group-item">
-          <i className="fa fa-user" aria-hidden="true"></i>
-          <div>{member.firstname} {member.lastname}</div>
-          <div>{member.phone}</div>
-          <div>{member.email}</div>
+        <a key={member.id} onClick={() => this.props.editMember(member)} className="list-group-item list-group-item-action">
+          <div>
+            <i className="fa fa-user-circle fa-3x" aria-hidden="true"></i>
+          </div>
+
+          <div>
+            <div>{member.firstname} {member.lastname}</div>
+            <div>{member.phone}</div>
+            <div>{member.email}</div>
+          </div>
         </a>
       );
     });
@@ -22,7 +27,7 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <Link to="/add"><i className="fa fa-plus"></i></Link>
+        <Link to="/add"><i className="fa fa-plus fa-3x"></i></Link>
         <h3>Team members</h3>
         <p>You have {this.props.members.length} team members.</p>
         <ul className="list-group col-sm-4">

@@ -30,35 +30,37 @@ class Add extends Component {
   render() {
     return (
       <div>
-        <Link to="/"><i className="fa fa-times"></i></Link>
+        <Link to="/"><i className="fa fa-times fa-3x"></i></Link>
 
         <form onSubmit={this.handleFormSubmit.bind(this)}>
           <h3>Add a team member</h3>
-          <p>Add contact info, location and role.</p>
+          <p>Set email, location and role.</p>
 
           <hr/>
 
-          <label>Info</label>
+          <label className="control-label">Info</label>
           <br/>
-          <field>
-            <input type="text" value={this.state.firstname} onChange={this.handleChange.bind(this, 'firstname')} placeholder="firstname"/>
-          </field>
-          <br/>
-          <field>
-            <input type="text" value={this.state.lastname} onChange={this.handleChange.bind(this, 'lastname')} placeholder="lastname"/>
-          </field>
-          <br/>
-          <field>
-            <input type="text" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} placeholder="email"/>
-          </field>
-          <br/>
-          <field>
-            <input type="text" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} placeholder="phone"/>
-          </field>
+          <div className="formfield">
+            <field>
+              <input className="form-control" type="text" value={this.state.firstname} onChange={this.handleChange.bind(this, 'firstname')} placeholder="firstname"/>
+            </field>
+            <br/>
+            <field>
+              <input className="form-control" type="text" value={this.state.lastname} onChange={this.handleChange.bind(this, 'lastname')} placeholder="lastname"/>
+            </field>
+            <br/>
+            <field>
+              <input className="form-control" type="text" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} placeholder="email"/>
+            </field>
+            <br/>
+            <field>
+              <input className="form-control" type="text" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} placeholder="phone"/>
+            </field>
+          </div>
           <br/>
 
 
-          <button type="submit">Save</button>
+          <button type="submit" className="btn btn-primary">Save</button>
 
         </form>
       </div>
