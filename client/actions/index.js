@@ -31,3 +31,10 @@ export function deleteMember(member) {
     payload: member
   }
 }
+
+export function updateRole(role) {
+  return {
+    type: 'UPDATE_ROLE',
+    payload: role
+  }
+}

@@ -29,6 +29,11 @@ export default function(state = INITIAL_STATE, action) {
     var newMembers = state.members.concat([member])
     return Object.assign({}, state, { members: newMembers })
 
+    case 'UPDATE_ROLE':
+    var newMember =  JSON.parse(JSON.stringify(state.currentMember));
+    newMember.checked = action.payload;
+    return Object.assign({}, state, { currentMember: newMember })
+
     default:
     return state;
   }
