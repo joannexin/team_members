@@ -7,15 +7,32 @@ import { bindActionCreators } from 'redux';
 class Edit extends Component {
   constructor() {
     super();
+    this.state = {
+      firstname: "",
+      lastname: "",
+      email: "",
+      phone: "",
+      checked: "regular",
+    };
   }
 
   handleFormSubmit(e) {
+      debugger
     e.preventDefault();
     const attributes = { id: this.props.member.id };
     ['firstname', 'lastname', 'email', 'phone'].forEach((a) => {
       attributes[a] = this[a].value;
     })
     this.props.updateMember(attributes);
+
+  }
+
+  handleOptionChange(e) {
+    if (this.props.member.checked === "regular") {
+      this.props.member.checked = "admin";
+    } else {
+      this.props.member.checked = "regular";
+    }
   }
 
   render() {
@@ -32,23 +49,31 @@ class Edit extends Component {
           <label className="control-label">Info</label>
           <br/>
           <div className="formfield">
-            <field>
-              <input className="form-control" type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname}/>
-            </field>
+            <input className="form-control" type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname}/>
             <br/>
-            <field>
-              <input className="form-control" type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname}/>
-            </field>
+            <input className="form-control" type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname}/>
             <br/>
-            <field>
-              <input className="form-control" type="text" ref={(input) => this.email = input} placeholder="email" defaultValue={this.props.member.email}/>
-            </field>
+            <input className="form-control" type="text" ref={(input) => this.email = input} placeholder="email" defaultValue={this.props.member.email}/>
             <br/>
-            <field>
-              <input className="form-control" type="text" ref={(input) => this.phone = input} placeholder="phone" defaultValue={this.props.member.phone}/>
-            </field>
+            <input className="form-control" type="text" ref={(input) => this.phone = input} placeholder="phone" defaultValue={this.props.member.phone}/>
           </div>
           <br/>
+
+          <label className="control-label">Role</label>
+          <hr/>
+          <div>
+            <label>
+              <input type='radio' value='regular' onChange={(e) => {this.onRadioSelected(committee.shortName, e)}} checked={this.props.member.checked === 'regular'} onChange={this.handleOptionChange.bind(this)}/>
+              <span> Regular - Can't delete members</span>
+            </label>
+            <br/>
+            <hr/>
+            <label>
+              <input type='radio' value='admin' checked={this.props.member.checked === 'admin'} onChange={this.handleOptionChange.bind(this)}/>
+              <span> Admin - Can delete members</span>
+            </label>
+          </div>
+          <hr/>
 
           <button type="submit" className="btn btn-primary">Save</button>
 
@@ -65,7 +90,7 @@ function mapStateToProps(state) {
     member: state.memberReducer.currentMember
   };
 }
-
+// whenever updateMember and deleteMember is called, the result will pass to all the reducers
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateMember, deleteMember }, dispatch);
 }

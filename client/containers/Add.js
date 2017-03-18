@@ -12,6 +12,7 @@ class Add extends Component {
       lastname: "",
       email: "",
       phone: "",
+      checked: "regular",
     };
   }
 
@@ -20,11 +21,16 @@ class Add extends Component {
     this.props.addMember(this.state);
   }
 
-
   handleChange(field, e) {
     const change = {};
     change[field] = e.target.value;
     this.setState(change);
+  }
+
+  handleOptionChange(e) {
+    this.setState({
+      checked: e.target.value
+    });
   }
 
   render() {
@@ -41,25 +47,31 @@ class Add extends Component {
           <label className="control-label">Info</label>
           <br/>
           <div className="formfield">
-            <field>
-              <input className="form-control" type="text" value={this.state.firstname} onChange={this.handleChange.bind(this, 'firstname')} placeholder="firstname"/>
-            </field>
+            <input className="form-control" type="text" value={this.state.firstname} onChange={this.handleChange.bind(this, 'firstname')} placeholder="firstname"/>
             <br/>
-            <field>
-              <input className="form-control" type="text" value={this.state.lastname} onChange={this.handleChange.bind(this, 'lastname')} placeholder="lastname"/>
-            </field>
+            <input className="form-control" type="text" value={this.state.lastname} onChange={this.handleChange.bind(this, 'lastname')} placeholder="lastname"/>
             <br/>
-            <field>
-              <input className="form-control" type="text" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} placeholder="email"/>
-            </field>
+            <input className="form-control" type="text" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} placeholder="email"/>
             <br/>
-            <field>
-              <input className="form-control" type="text" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} placeholder="phone"/>
-            </field>
+            <input className="form-control" type="text" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} placeholder="phone"/>
           </div>
           <br/>
 
-
+          <label className="control-label">Role</label>
+          <hr/>
+          <div>
+            <label>
+              <input type='radio' value='regular' checked={this.state.checked === 'regular'} onChange={this.handleOptionChange.bind(this)}/>
+              <span> Regular - Can't delete members</span>
+            </label>
+            <br/>
+            <hr/>
+            <label>
+              <input type='radio' value='admin' checked={this.state.checked === 'admin'} onChange={this.handleOptionChange.bind(this)} />
+              <span> Admin - Can delete members</span>
+            </label>
+          </div>
+          <hr/>
           <button type="submit" className="btn btn-primary">Save</button>
 
         </form>
@@ -68,17 +80,7 @@ class Add extends Component {
   }
 }
 
-
-{/* <label>Role</label>
-  <br/>
-  <field>
-  <input type="radio" name="regular" value="regular" /> Regular - Can't delete members
-</field>
-<field>
-<input type="radio" name="admin" value="admin" /> Admin - Can delete members
-</field>
-<br/> */}
-
+// whenever addMember is called, the result will pass to all the reducers
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ addMember: addMember }, dispatch);
 }

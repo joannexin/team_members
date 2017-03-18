@@ -8,19 +8,35 @@ class Home extends Component {
 
   renderList() {
     return this.props.members.map((member) => {
-      return (
-        <a key={member.id} onClick={() => this.props.editMember(member)} className="list-group-item list-group-item-action">
-          <div>
-            <i className="fa fa-user-circle fa-3x" aria-hidden="true"></i>
-          </div>
+      if (member.checked === 'admin') {
+        return (
+          <a key={member.id} onClick={() => this.props.editMember(member)} className="list-group-item list-group-item-action">
+            <div>
+              <i className="fa fa-user-circle fa-3x" aria-hidden="true"></i>
+            </div>
 
-          <div>
-            <div>{member.firstname} {member.lastname}</div>
-            <div>{member.phone}</div>
-            <div>{member.email}</div>
-          </div>
-        </a>
-      );
+            <div>
+              <div>{member.firstname} {member.lastname} ({member.checked})</div>
+              <div>{member.phone}</div>
+              <div>{member.email}</div>
+            </div>
+          </a>
+        );
+      } else {
+        return (
+          <a key={member.id} onClick={() => this.props.editMember(member)} className="list-group-item list-group-item-action">
+            <div>
+              <i className="fa fa-user-circle fa-3x" aria-hidden="true"></i>
+            </div>
+
+            <div>
+              <div>{member.firstname} {member.lastname}</div>
+              <div>{member.phone}</div>
+              <div>{member.email}</div>
+            </div>
+          </a>
+        );
+      }
     });
   }
 
@@ -43,7 +59,7 @@ function mapStateToProps(state) {
     members: state.memberReducer.members
   };
 }
-
+// whenever editMember is called, the result will pass to all the reducers
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ editMember: editMember }, dispatch);
 }
