@@ -7,6 +7,7 @@
 }
 
 .list-group-item {
+  min-height: 97.34px;
   border: 2px solid #D3D3D3;
   padding: 5%;
   border-left: none;
