@@ -39,6 +39,9 @@ export default function(state = INITIAL_STATE, action) {
 }
 
 const generateId = (members) => {
+  if (members.length === 0) {
+    return 1;
+  }
   return Math.max.apply(null, members.map((m) => m.id)) + 1;
 }
 
