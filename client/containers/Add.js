@@ -46,7 +46,7 @@ class Add extends Component {
 
           <label className="control-label">Info</label>
           <br/>
-          <div className="formfield">
+          <div>
             <input className="form-control" type="text" value={this.state.firstname} onChange={this.handleChange.bind(this, 'firstname')} placeholder="firstname"/>
             <br/>
             <input className="form-control" type="text" value={this.state.lastname} onChange={this.handleChange.bind(this, 'lastname')} placeholder="lastname"/>

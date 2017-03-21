@@ -26,7 +26,7 @@ class Edit extends Component {
 
   render() {
     return (
-      <div>
+      <div className="outerContainer">
         <Link to="/"><i className="fa fa-times fa-3x"></i></Link>
 
         <form onSubmit={this.handleFormSubmit.bind(this)}>
@@ -37,7 +37,7 @@ class Edit extends Component {
 
           <label className="control-label">Info</label>
           <br/>
-          <div className="formfield">
+          <div>
             <input className="form-control" type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname}/>
             <br/>
             <input className="form-control" type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname}/>
