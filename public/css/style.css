@@ -1,8 +1,8 @@
-body {
+/*body {
   text-align: center;
-}
+}*/
 
-ul {
+/*ul {
   margin-left: 34%;
 }
 
@@ -16,4 +16,28 @@ hr, .formfield {
 
 button {
   min-width: 34%;
+}*/
+
+.outerContainer {
+  margin: 0 auto;
+  border: 1px solid #D3D3D3;
+  max-width: 30%;
+  box-shadow: 10px 10px 5px #888888;
+  overflow: hidden;
+}
+
+.list-group-item {
+  border: 2px solid #D3D3D3;
+  padding: 5%;
+  border-left: none;
+  border-right: none;
+}
+
+h3, p {
+  padding-left: 10px;
+}
+
+.fa-plus {
+  float: right;
+  padding: 3%;
 }
