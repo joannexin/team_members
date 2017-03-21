@@ -21,7 +21,16 @@ class Edit extends Component {
   }
 
   handleOptionChange(e) {
-    this.props.updateRole(e.target.value)
+    this.props.updateRole(e.target.value);
+  }
+
+  handleDelete() {
+    var confirmed = confirm("Are you sure you want to delete this member?");
+    if (confirmed) {
+      this.props.deleteMember(this.props.member);
+    } else {
+      return false;
+    }
   }
 
   render() {
@@ -65,7 +74,7 @@ class Edit extends Component {
           <hr/>
           <button type="submit" className="btn btn-primary">Save</button>
         </form>
-        <button onClick={() => this.props.deleteMember(this.props.member)} className="btn btn-danger">Delete</button>
+        <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete</button>
       </div>
     );
   }
