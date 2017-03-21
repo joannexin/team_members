@@ -14,6 +14,15 @@
   border-right: none;
 }
 
+.list-group-item:first-child {
+  margin-top: 10%;
+  border-top: 3px solid #D3D3D3;
+}
+
+.list-group-item:last-child {
+  border-bottom: 3px solid #D3D3D3;
+}
+
 h3, p, form {
   padding: 0 10px;
 }
