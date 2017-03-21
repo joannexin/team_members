@@ -29,7 +29,7 @@ class Edit extends Component {
       <div className="outerContainer">
         <Link to="/"><i className="fa fa-times fa-3x"></i></Link>
 
-        <form onSubmit={this.handleFormSubmit.bind(this)}>
+        <form data-toggle="validator" onSubmit={this.handleFormSubmit.bind(this)}>
           <h3>Edit team member</h3>
           <p>Edit contact info, location and role.</p>
 
@@ -38,13 +38,13 @@ class Edit extends Component {
           <label className="control-label">Info</label>
           <br/>
           <div>
-            <input className="form-control" type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname}/>
+            <input className="form-control" type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname} required />
             <br/>
-            <input className="form-control" type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname}/>
+            <input className="form-control" type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname} required />
             <br/>
-            <input className="form-control" type="text" ref={(input) => this.email = input} placeholder="email" defaultValue={this.props.member.email}/>
+            <input className="form-control" type="email" ref={(input) => this.email = input} placeholder="email" defaultValue={this.props.member.email} required />
             <br/>
-            <input className="form-control" type="text" ref={(input) => this.phone = input} placeholder="phone" defaultValue={this.props.member.phone}/>
+            <input className="form-control" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" ref={(input) => this.phone = input} placeholder="phone" defaultValue={this.props.member.phone} required />
           </div>
           <br/>
 
