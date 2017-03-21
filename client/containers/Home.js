@@ -29,7 +29,7 @@ class Home extends Component {
       <div className="outerContainer">
         <Link to="/add"><i className="fa fa-plus fa-3x"></i></Link>
         <h3>Team members</h3>
-        <p>You have {this.props.members.length} team members.</p>
+        <p>You have {this.props.members.length === 0 ? `no` : `${this.props.members.length}`} team members.</p>
         <div className="list-group">
           {this.renderList()}
         </div>
