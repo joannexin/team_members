@@ -33,11 +33,16 @@ button {
   border-right: none;
 }
 
-h3, p {
-  padding-left: 10px;
+h3, p, form {
+  padding: 0 10px;
 }
 
-.fa-plus {
+.fa-plus,.fa-times {
   float: right;
   padding: 3%;
+}
+
+.btn.btn-primary {
+  float: right;
+  margin-bottom: 10px;
 }

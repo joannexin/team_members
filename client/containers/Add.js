@@ -35,7 +35,7 @@ class Add extends Component {
 
   render() {
     return (
-      <div>
+      <div className="outerContainer">
         <Link to="/"><i className="fa fa-times fa-3x"></i></Link>
 
         <form onSubmit={this.handleFormSubmit.bind(this)}>
@@ -58,7 +58,6 @@ class Add extends Component {
           <br/>
 
           <label className="control-label">Role</label>
-          <hr/>
           <div>
             <label>
               <input type='radio' value='regular' checked={this.state.checked === 'regular'} onChange={this.handleOptionChange.bind(this)}/>
