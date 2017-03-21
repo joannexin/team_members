@@ -38,7 +38,7 @@ class Add extends Component {
       <div className="outerContainer">
         <Link to="/"><i className="fa fa-times fa-3x"></i></Link>
 
-        <form onSubmit={this.handleFormSubmit.bind(this)}>
+        <form data-toggle="validator" onSubmit={this.handleFormSubmit.bind(this)}>
           <h3>Add a team member</h3>
           <p>Set email, location and role.</p>
 
@@ -51,9 +51,9 @@ class Add extends Component {
             <br/>
             <input className="form-control" type="text" value={this.state.lastname} onChange={this.handleChange.bind(this, 'lastname')} placeholder="lastname" required />
             <br/>
-            <input className="form-control" type="text" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} placeholder="email" required />
+            <input className="form-control" type="email" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} placeholder="email" required />
             <br/>
-            <input className="form-control" type="text" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} placeholder="phone" required />
+            <input className="form-control" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} placeholder="phone (xxx-xxx-xxxx)" required />
           </div>
           <br/>
 
