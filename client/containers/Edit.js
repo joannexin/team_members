@@ -5,9 +5,6 @@ import { updateRole, updateMember, deleteMember } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class Edit extends Component {
-  constructor() {
-    super();
-  }
 
   handleFormSubmit(e) {
     e.preventDefault();
@@ -84,8 +81,10 @@ function mapStateToProps(state) {
     member: state.memberReducer.currentMember
   };
 }
+
 // whenever updateMember and deleteMember is called, the result will pass to all the reducers
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateRole, updateMember, deleteMember }, dispatch);
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);
