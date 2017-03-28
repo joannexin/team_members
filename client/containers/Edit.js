@@ -5,9 +5,6 @@ import { updateRole, updateMember, deleteMember } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class Edit extends Component {
-  constructor() {
-    super();
-  }
 
   handleFormSubmit(e) {
     e.preventDefault();
@@ -21,15 +18,24 @@ class Edit extends Component {
   }
 
   handleOptionChange(e) {
-    this.props.updateRole(e.target.value)
+    this.props.updateRole(e.target.value);
+  }
+
+  handleDelete() {
+    var confirmed = confirm("Are you sure you want to delete this member?");
+    if (confirmed) {
+      this.props.deleteMember(this.props.member);
+    } else {
+      return false;
+    }
   }
 
   render() {
     return (
-      <div>
+      <div className="outerContainer">
         <Link to="/"><i className="fa fa-times fa-3x"></i></Link>
 
-        <form onSubmit={this.handleFormSubmit.bind(this)}>
+        <form data-toggle="validator" onSubmit={this.handleFormSubmit.bind(this)}>
           <h3>Edit team member</h3>
           <p>Edit contact info, location and role.</p>
 
@@ -37,14 +43,14 @@ class Edit extends Component {
 
           <label className="control-label">Info</label>
           <br/>
-          <div className="formfield">
-            <input className="form-control" type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname}/>
+          <div>
+            <input className="form-control" type="text" ref={(input) => this.firstname = input} placeholder="firstname" defaultValue={this.props.member.firstname} required />
             <br/>
-            <input className="form-control" type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname}/>
+            <input className="form-control" type="text" ref={(input) => this.lastname = input} placeholder="lastname" defaultValue={this.props.member.lastname} required />
             <br/>
-            <input className="form-control" type="text" ref={(input) => this.email = input} placeholder="email" defaultValue={this.props.member.email}/>
+            <input className="form-control" type="email" ref={(input) => this.email = input} placeholder="email" defaultValue={this.props.member.email} required />
             <br/>
-            <input className="form-control" type="text" ref={(input) => this.phone = input} placeholder="phone" defaultValue={this.props.member.phone}/>
+            <input className="form-control" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" ref={(input) => this.phone = input} placeholder="phone" defaultValue={this.props.member.phone} required />
           </div>
           <br/>
 
@@ -65,7 +71,7 @@ class Edit extends Component {
           <hr/>
           <button type="submit" className="btn btn-primary">Save</button>
         </form>
-        <button onClick={() => this.props.deleteMember(this.props.member)} className="btn btn-danger">Delete</button>
+        <button onClick={this.handleDelete.bind(this)} className="btn btn-danger">Delete</button>
       </div>
     );
   }
@@ -75,8 +81,10 @@ function mapStateToProps(state) {
     member: state.memberReducer.currentMember
   };
 }
+
 // whenever updateMember and deleteMember is called, the result will pass to all the reducers
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ updateRole, updateMember, deleteMember }, dispatch);
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(Edit);

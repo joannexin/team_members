@@ -1,44 +1,35 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { addMember } from '../actions/index';
+import { addMember, updateRole } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class Add extends Component {
-  constructor() {
-    super();
-    this.state = {
-      firstname: "",
-      lastname: "",
-      email: "",
-      phone: "",
-      checked: "regular",
-    };
+  componentWillMount() {
+    this.props.member.checked = "regular";
   }
 
   handleFormSubmit(e) {
     e.preventDefault();
-    this.props.addMember(this.state);
-  }
-
-  handleChange(field, e) {
-    const change = {};
-    change[field] = e.target.value;
-    this.setState(change);
+    this.props.addMember({
+      firstname: this.firstNameRef.value,
+      lastname: this.lastNameRef.value,
+      email: this.emailRef.value,
+      phone: this.phoneRef.value,
+      checked: this.props.member.checked,
+    });
   }
 
   handleOptionChange(e) {
-    this.setState({
-      checked: e.target.value
-    });
+    this.props.updateRole(e.target.value);
   }
 
   render() {
     return (
-      <div>
+      <div className="outerContainer">
         <Link to="/"><i className="fa fa-times fa-3x"></i></Link>
 
-        <form onSubmit={this.handleFormSubmit.bind(this)}>
+        <form data-toggle="validator" onSubmit={this.handleFormSubmit.bind(this)}>
           <h3>Add a team member</h3>
           <p>Set email, location and role.</p>
 
@@ -46,14 +37,14 @@ class Add extends Component {
 
           <label className="control-label">Info</label>
           <br/>
-          <div className="formfield">
-            <input className="form-control" type="text" value={this.state.firstname} onChange={this.handleChange.bind(this, 'firstname')} placeholder="firstname"/>
+          <div>
+            <input className="form-control" type="text" ref={(input) => this.firstNameRef = input} placeholder="firstname" required />
             <br/>
-            <input className="form-control" type="text" value={this.state.lastname} onChange={this.handleChange.bind(this, 'lastname')} placeholder="lastname"/>
+            <input className="form-control" type="text" ref={(input) => this.lastNameRef = input} placeholder="lastname" required />
             <br/>
-            <input className="form-control" type="text" value={this.state.email} onChange={this.handleChange.bind(this, 'email')} placeholder="email"/>
+            <input className="form-control" type="email" ref={(input) => this.emailRef = input} placeholder="email" required />
             <br/>
-            <input className="form-control" type="text" value={this.state.phone} onChange={this.handleChange.bind(this, 'phone')} placeholder="phone"/>
+            <input className="form-control" type="tel" pattern="^\d{3}-\d{3}-\d{4}$" ref={(input) => this.phoneRef = input} placeholder="phone (xxx-xxx-xxxx)" required />
           </div>
           <br/>
 
@@ -61,13 +52,13 @@ class Add extends Component {
           <hr/>
           <div>
             <label>
-              <input type='radio' value='regular' checked={this.state.checked === 'regular'} onChange={this.handleOptionChange.bind(this)}/>
-              <span> Regular - Can't delete members</span>
+              <input type='radio' value='regular' checked={this.props.member.checked === 'regular'} onChange={this.handleOptionChange.bind(this)}/>
+              <span> Regular - Cannot delete members</span>
             </label>
             <br/>
             <hr/>
             <label>
-              <input type='radio' value='admin' checked={this.state.checked === 'admin'} onChange={this.handleOptionChange.bind(this)} />
+              <input type='radio' value='admin' checked={this.props.member.checked === 'admin'} onChange={this.handleOptionChange.bind(this)}/>
               <span> Admin - Can delete members</span>
             </label>
           </div>
@@ -80,9 +71,15 @@ class Add extends Component {
   }
 }
 
-// whenever addMember is called, the result will pass to all the reducers
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ addMember: addMember }, dispatch);
+function mapStateToProps(state) {
+  return {
+    member: state.memberReducer.currentMember
+  };
 }
 
-export default connect(null, mapDispatchToProps)(Add);
+// whenever addMember is called, the result will pass to all the reducers
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ addMember, updateRole }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Add);
